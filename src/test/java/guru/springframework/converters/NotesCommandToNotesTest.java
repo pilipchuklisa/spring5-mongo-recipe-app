@@ -4,9 +4,7 @@ import guru.springframework.commands.NotesCommand;
 import guru.springframework.domain.Notes;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
-
+import org.junit.Assert;
 public class NotesCommandToNotesTest {
 
     public static final String ID_VALUE = "1";
@@ -21,12 +19,12 @@ public class NotesCommandToNotesTest {
 
     @Test
     public void testNullParameter() throws Exception {
-        assertNull(converter.convert(null));
+        Assert.assertNull(converter.convert(null));
     }
 
     @Test
     public void testEmptyObject() throws Exception {
-        assertNotNull(converter.convert(new NotesCommand()));
+        Assert.assertNotNull(converter.convert(new NotesCommand()));
     }
 
     @Test
@@ -40,9 +38,9 @@ public class NotesCommandToNotesTest {
         Notes notes = converter.convert(notesCommand);
 
         //then
-        assertNotNull(notes);
-        assertEquals(ID_VALUE, notes.getId());
-        assertEquals(RECIPE_NOTES, notes.getRecipeNotes());
+        Assert.assertNotNull(notes);
+        Assert.assertEquals(ID_VALUE, notes.getId());
+        Assert.assertEquals(RECIPE_NOTES, notes.getRecipeNotes());
     }
 
 }

@@ -2,8 +2,7 @@ package guru.springframework.domain;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
+import org.junit.Assert;
 
 /**
  * Created by jt on 6/17/17.
@@ -23,7 +22,7 @@ public class CategoryTest {
 
         category.setId(idValue);
 
-        assertEquals(idValue, category.getId());
+        Assert.assertEquals(idValue, category.getId());
     }
 
     @Test

@@ -5,6 +5,7 @@ import guru.springframework.converters.RecipeCommandToRecipe;
 import guru.springframework.converters.RecipeToRecipeCommand;
 import guru.springframework.domain.Recipe;
 import guru.springframework.repositories.RecipeRepository;
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,9 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.junit.Assert.assertEquals;
-
 
 /**
  * Created by jt on 6/21/17.
@@ -51,9 +49,9 @@ public class RecipeServiceIT {
         RecipeCommand savedRecipeCommand = recipeService.saveRecipeCommand(testRecipeCommand);
 
         //then
-        assertEquals(NEW_DESCRIPTION, savedRecipeCommand.getDescription());
-        assertEquals(testRecipe.getId(), savedRecipeCommand.getId());
-        assertEquals(testRecipe.getCategories().size(), savedRecipeCommand.getCategories().size());
-        assertEquals(testRecipe.getIngredients().size(), savedRecipeCommand.getIngredients().size());
+        Assert.assertEquals(NEW_DESCRIPTION, savedRecipeCommand.getDescription());
+        Assert.assertEquals(testRecipe.getId(), savedRecipeCommand.getId());
+        Assert.assertEquals(testRecipe.getCategories().size(), savedRecipeCommand.getCategories().size());
+        Assert.assertEquals(testRecipe.getIngredients().size(), savedRecipeCommand.getIngredients().size());
     }
 }

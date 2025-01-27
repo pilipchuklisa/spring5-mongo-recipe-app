@@ -8,8 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-
-import static org.junit.Assert.*;
+import org.junit.Assert;
 
 /**
  * Created by jt on 6/21/17.
@@ -32,12 +31,12 @@ public class IngredientToIngredientCommandTest {
 
     @Test
     public void testNullConvert() throws Exception {
-        assertNull(converter.convert(null));
+        Assert.assertNull(converter.convert(null));
     }
 
     @Test
     public void testEmptyObject() throws Exception {
-        assertNotNull(converter.convert(new Ingredient()));
+        Assert.assertNotNull(converter.convert(new Ingredient()));
     }
 
     @Test
@@ -45,17 +44,17 @@ public class IngredientToIngredientCommandTest {
         //given
         Ingredient ingredient = new Ingredient();
         ingredient.setId(ID_VALUE);
-        ingredient.setRecipe(RECIPE);
+        //ingredient.setRecipe(RECIPE);
         ingredient.setAmount(AMOUNT);
         ingredient.setDescription(DESCRIPTION);
         ingredient.setUom(null);
         //when
         IngredientCommand ingredientCommand = converter.convert(ingredient);
         //then
-        assertNull(ingredientCommand.getUom());
-        assertEquals(ID_VALUE, ingredientCommand.getId());
-        assertEquals(AMOUNT, ingredientCommand.getAmount());
-        assertEquals(DESCRIPTION, ingredientCommand.getDescription());
+        Assert.assertNull(ingredientCommand.getUom());
+        Assert.assertEquals(ID_VALUE, ingredientCommand.getId());
+        Assert.assertEquals(AMOUNT, ingredientCommand.getAmount());
+        Assert.assertEquals(DESCRIPTION, ingredientCommand.getDescription());
     }
 
     @Test
@@ -63,7 +62,7 @@ public class IngredientToIngredientCommandTest {
         //given
         Ingredient ingredient = new Ingredient();
         ingredient.setId(ID_VALUE);
-        ingredient.setRecipe(RECIPE);
+        //ingredient.setRecipe(RECIPE);
         ingredient.setAmount(AMOUNT);
         ingredient.setDescription(DESCRIPTION);
 
@@ -74,11 +73,11 @@ public class IngredientToIngredientCommandTest {
         //when
         IngredientCommand ingredientCommand = converter.convert(ingredient);
         //then
-        assertEquals(ID_VALUE, ingredientCommand.getId());
-        assertNotNull(ingredientCommand.getUom());
-        assertEquals(UOM_ID, ingredientCommand.getUom().getId());
+        Assert.assertEquals(ID_VALUE, ingredientCommand.getId());
+        Assert.assertNotNull(ingredientCommand.getUom());
+        Assert.assertEquals(UOM_ID, ingredientCommand.getUom().getId());
         // assertEquals(RECIPE, ingredientCommand.get);
-        assertEquals(AMOUNT, ingredientCommand.getAmount());
-        assertEquals(DESCRIPTION, ingredientCommand.getDescription());
+        Assert.assertEquals(AMOUNT, ingredientCommand.getAmount());
+        Assert.assertEquals(DESCRIPTION, ingredientCommand.getDescription());
     }
 }

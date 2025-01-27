@@ -8,8 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-
-import static org.junit.Assert.*;
+import org.junit.Assert;
 
 public class IngredientCommandToIngredientTest {
 
@@ -28,12 +27,12 @@ public class IngredientCommandToIngredientTest {
 
     @Test
     public void testNullObject() throws Exception {
-        assertNull(converter.convert(null));
+        Assert.assertNull(converter.convert(null));
     }
 
     @Test
     public void testEmptyObject() throws Exception {
-        assertNotNull(converter.convert(new IngredientCommand()));
+        Assert.assertNotNull(converter.convert(new IngredientCommand()));
     }
 
     @Test
@@ -51,12 +50,12 @@ public class IngredientCommandToIngredientTest {
         Ingredient ingredient = converter.convert(command);
 
         //then
-        assertNotNull(ingredient);
-        assertNotNull(ingredient.getUom());
-        assertEquals(ID_VALUE, ingredient.getId());
-        assertEquals(AMOUNT, ingredient.getAmount());
-        assertEquals(DESCRIPTION, ingredient.getDescription());
-        assertEquals(UOM_ID, ingredient.getUom().getId());
+        Assert.assertNotNull(ingredient);
+        Assert.assertNotNull(ingredient.getUom());
+        Assert.assertEquals(ID_VALUE, ingredient.getId());
+        Assert.assertEquals(AMOUNT, ingredient.getAmount());
+        Assert.assertEquals(DESCRIPTION, ingredient.getDescription());
+        Assert.assertEquals(UOM_ID, ingredient.getUom().getId());
     }
 
     @Test
@@ -73,11 +72,11 @@ public class IngredientCommandToIngredientTest {
         Ingredient ingredient = converter.convert(command);
 
         //then
-        assertNotNull(ingredient);
-        assertNull(ingredient.getUom());
-        assertEquals(ID_VALUE, ingredient.getId());
-        assertEquals(AMOUNT, ingredient.getAmount());
-        assertEquals(DESCRIPTION, ingredient.getDescription());
+        Assert.assertNotNull(ingredient);
+        Assert.assertNull(ingredient.getUom());
+        Assert.assertEquals(ID_VALUE, ingredient.getId());
+        Assert.assertEquals(AMOUNT, ingredient.getAmount());
+        Assert.assertEquals(DESCRIPTION, ingredient.getDescription());
     }
 
 }

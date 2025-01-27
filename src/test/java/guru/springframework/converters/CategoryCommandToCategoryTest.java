@@ -2,10 +2,9 @@ package guru.springframework.converters;
 
 import guru.springframework.commands.CategoryCommand;
 import guru.springframework.domain.Category;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class CategoryCommandToCategoryTest {
 
@@ -20,12 +19,12 @@ public class CategoryCommandToCategoryTest {
 
     @Test
     public void testNullObject() throws Exception {
-        assertNull(conveter.convert(null));
+        Assert.assertNull(conveter.convert(null));
     }
 
     @Test
     public void testEmptyObject() throws Exception {
-        assertNotNull(conveter.convert(new CategoryCommand()));
+        Assert.assertNotNull(conveter.convert(new CategoryCommand()));
     }
 
     @Test
@@ -39,8 +38,8 @@ public class CategoryCommandToCategoryTest {
         Category category = conveter.convert(categoryCommand);
 
         //then
-        assertEquals(ID_VALUE, category.getId());
-        assertEquals(DESCRIPTION, category.getDescription());
+        Assert.assertEquals(ID_VALUE, category.getId());
+        Assert.assertEquals(DESCRIPTION, category.getDescription());
     }
 
 }

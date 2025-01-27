@@ -4,8 +4,7 @@ import guru.springframework.commands.UnitOfMeasureCommand;
 import guru.springframework.domain.UnitOfMeasure;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
+import org.junit.Assert;
 
 public class UnitOfMeasureCommandToUnitOfMeasureTest {
 
@@ -22,12 +21,12 @@ public class UnitOfMeasureCommandToUnitOfMeasureTest {
 
     @Test
     public void testNullParamter() throws Exception {
-        assertNull(converter.convert(null));
+        Assert.assertNull(converter.convert(null));
     }
 
     @Test
     public void testEmptyObject() throws Exception {
-        assertNotNull(converter.convert(new UnitOfMeasureCommand()));
+        Assert.assertNotNull(converter.convert(new UnitOfMeasureCommand()));
     }
 
     @Test
@@ -41,9 +40,9 @@ public class UnitOfMeasureCommandToUnitOfMeasureTest {
         UnitOfMeasure uom = converter.convert(command);
 
         //then
-        assertNotNull(uom);
-        assertEquals(LONG_VALUE, uom.getId());
-        assertEquals(DESCRIPTION, uom.getDescription());
+        Assert.assertNotNull(uom);
+        Assert.assertEquals(LONG_VALUE, uom.getId());
+        Assert.assertEquals(DESCRIPTION, uom.getDescription());
 
     }
 

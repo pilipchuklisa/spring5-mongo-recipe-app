@@ -4,17 +4,12 @@ import guru.springframework.domain.Recipe;
 import guru.springframework.repositories.RecipeRepository;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
-
+import org.junit.Assert;
 
 public class ImageServiceImplTest {
 
@@ -41,7 +36,7 @@ public class ImageServiceImplTest {
         recipe.setId(id);
         Optional<Recipe> recipeOptional = Optional.of(recipe);
 
-        when(recipeRepository.findById(anyString())).thenReturn(recipeOptional);
+        Mockito.when(recipeRepository.findById(ArgumentMatchers.anyString())).thenReturn(recipeOptional);
 
         ArgumentCaptor<Recipe> argumentCaptor = ArgumentCaptor.forClass(Recipe.class);
 
@@ -49,9 +44,9 @@ public class ImageServiceImplTest {
         imageService.saveImageFile(id, multipartFile);
 
         //then
-        verify(recipeRepository, times(1)).save(argumentCaptor.capture());
+        Mockito.verify(recipeRepository, Mockito.times(1)).save(argumentCaptor.capture());
         Recipe savedRecipe = argumentCaptor.getValue();
-        assertEquals(multipartFile.getBytes().length, savedRecipe.getImage().length);
+        Assert.assertEquals(multipartFile.getBytes().length, savedRecipe.getImage().length);
     }
 
 }

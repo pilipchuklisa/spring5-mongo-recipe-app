@@ -11,14 +11,13 @@ import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import org.junit.Assert;
 
 public class IngredientServiceImplTest {
 
@@ -71,15 +70,15 @@ public class IngredientServiceImplTest {
         recipe.addIngredient(ingredient3);
         Optional<Recipe> recipeOptional = Optional.of(recipe);
 
-        when(recipeRepository.findById(anyString())).thenReturn(recipeOptional);
+        Mockito.when(recipeRepository.findById(ArgumentMatchers.anyString())).thenReturn(recipeOptional);
 
         //then
         IngredientCommand ingredientCommand = ingredientService.findByRecipeIdAndIngredientId("1", "3");
 
         //when
-        assertEquals("3", ingredientCommand.getId());
-        assertEquals("1", ingredientCommand.getRecipeId());
-        verify(recipeRepository, times(1)).findById(anyString());
+        Assert.assertEquals("3", ingredientCommand.getId());
+        Assert.assertEquals("1", ingredientCommand.getRecipeId());
+        Mockito.verify(recipeRepository, Mockito.times(1)).findById(ArgumentMatchers.anyString());
     }
 
 
@@ -96,16 +95,16 @@ public class IngredientServiceImplTest {
         savedRecipe.addIngredient(new Ingredient());
         savedRecipe.getIngredients().iterator().next().setId("3");
 
-        when(recipeRepository.findById(anyString())).thenReturn(recipeOptional);
-        when(recipeRepository.save(any())).thenReturn(savedRecipe);
+        Mockito.when(recipeRepository.findById(ArgumentMatchers.anyString())).thenReturn(recipeOptional);
+        Mockito.when(recipeRepository.save(ArgumentMatchers.any())).thenReturn(savedRecipe);
 
         //when
         IngredientCommand savedCommand = ingredientService.saveIngredientCommand(command);
 
         //then
-        assertEquals("3", savedCommand.getId());
-        verify(recipeRepository, times(1)).findById(anyString());
-        verify(recipeRepository, times(1)).save(any(Recipe.class));
+        Assert.assertEquals("3", savedCommand.getId());
+        Mockito.verify(recipeRepository, Mockito.times(1)).findById(ArgumentMatchers.anyString());
+        Mockito.verify(recipeRepository, Mockito.times(1)).save(ArgumentMatchers.any(Recipe.class));
 
     }
 
@@ -116,16 +115,16 @@ public class IngredientServiceImplTest {
         Ingredient ingredient = new Ingredient();
         ingredient.setId("3");
         recipe.addIngredient(ingredient);
-        ingredient.setRecipe(recipe);
+        //ingredient.setRecipe(recipe);
         Optional<Recipe> recipeOptional = Optional.of(recipe);
 
-        when(recipeRepository.findById(anyString())).thenReturn(recipeOptional);
+        Mockito.when(recipeRepository.findById(ArgumentMatchers.anyString())).thenReturn(recipeOptional);
 
         //when
         ingredientService.deleteById("1", "3");
 
         //then
-        verify(recipeRepository, times(1)).findById(anyString());
-        verify(recipeRepository, times(1)).save(any(Recipe.class));
+        Mockito.verify(recipeRepository, Mockito.times(1)).findById(ArgumentMatchers.anyString());
+        Mockito.verify(recipeRepository, Mockito.times(1)).save(ArgumentMatchers.any(Recipe.class));
     }
 }

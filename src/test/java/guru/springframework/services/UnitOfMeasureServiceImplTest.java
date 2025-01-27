@@ -7,13 +7,12 @@ import guru.springframework.repositories.UnitOfMeasureRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import org.junit.Assert;
 
 public class UnitOfMeasureServiceImplTest {
 
@@ -42,14 +41,14 @@ public class UnitOfMeasureServiceImplTest {
         uom2.setId("2");
         unitOfMeasures.add(uom2);
 
-        when(unitOfMeasureRepository.findAll()).thenReturn(unitOfMeasures);
+        Mockito.when(unitOfMeasureRepository.findAll()).thenReturn(unitOfMeasures);
 
         //when
         Set<UnitOfMeasureCommand> commands = service.listAllUoms();
 
         //then
-        assertEquals(2, commands.size());
-        verify(unitOfMeasureRepository, times(1)).findAll();
+        Assert.assertEquals(2, commands.size());
+        Mockito.verify(unitOfMeasureRepository, Mockito.times(1)).findAll();
     }
 
 }

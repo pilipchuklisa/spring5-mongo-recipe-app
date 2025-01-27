@@ -4,8 +4,7 @@ import guru.springframework.commands.RecipeCommand;
 import guru.springframework.domain.*;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
+import org.junit.Assert;
 
 public class RecipeToRecipeCommandTest {
 
@@ -35,12 +34,12 @@ public class RecipeToRecipeCommandTest {
 
     @Test
     public void testNullObject() throws Exception {
-        assertNull(converter.convert(null));
+        Assert.assertNull(converter.convert(null));
     }
 
     @Test
     public void testEmptyObject() throws Exception {
-        assertNotNull(converter.convert(new Recipe()));
+        Assert.assertNotNull(converter.convert(new Recipe()));
     }
 
     @Test
@@ -84,19 +83,19 @@ public class RecipeToRecipeCommandTest {
         RecipeCommand command = converter.convert(recipe);
 
         //then
-        assertNotNull(command);
-        assertEquals(RECIPE_ID, command.getId());
-        assertEquals(COOK_TIME, command.getCookTime());
-        assertEquals(PREP_TIME, command.getPrepTime());
-        assertEquals(DESCRIPTION, command.getDescription());
-        assertEquals(DIFFICULTY, command.getDifficulty());
-        assertEquals(DIRECTIONS, command.getDirections());
-        assertEquals(SERVINGS, command.getServings());
-        assertEquals(SOURCE, command.getSource());
-        assertEquals(URL, command.getUrl());
-        assertEquals(NOTES_ID, command.getNotes().getId());
-        assertEquals(2, command.getCategories().size());
-        assertEquals(2, command.getIngredients().size());
+        Assert.assertNotNull(command);
+        Assert.assertEquals(RECIPE_ID, command.getId());
+        Assert.assertEquals(COOK_TIME, command.getCookTime());
+        Assert.assertEquals(PREP_TIME, command.getPrepTime());
+        Assert.assertEquals(DESCRIPTION, command.getDescription());
+        Assert.assertEquals(DIFFICULTY, command.getDifficulty());
+        Assert.assertEquals(DIRECTIONS, command.getDirections());
+        Assert.assertEquals(SERVINGS, command.getServings());
+        Assert.assertEquals(SOURCE, command.getSource());
+        Assert.assertEquals(URL, command.getUrl());
+        Assert.assertEquals(NOTES_ID, command.getNotes().getId());
+        Assert.assertEquals(2, command.getCategories().size());
+        Assert.assertEquals(2, command.getIngredients().size());
 
     }
 

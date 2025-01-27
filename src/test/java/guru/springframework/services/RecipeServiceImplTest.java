@@ -9,16 +9,15 @@ import guru.springframework.exceptions.NotFoundException;
 import guru.springframework.repositories.RecipeRepository;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.*;
+import org.junit.Assert;
 
 /**
  * Created by jt on 6/17/17.
@@ -49,13 +48,13 @@ public class RecipeServiceImplTest {
         recipe.setId("1");
         Optional<Recipe> recipeOptional = Optional.of(recipe);
 
-        when(recipeRepository.findById(anyString())).thenReturn(recipeOptional);
+        Mockito.when(recipeRepository.findById(ArgumentMatchers.anyString())).thenReturn(recipeOptional);
 
         Recipe recipeReturned = recipeService.findById("1");
 
-        assertNotNull("Null recipe returned", recipeReturned);
-        verify(recipeRepository, times(1)).findById(anyString());
-        verify(recipeRepository, never()).findAll();
+        Assert.assertNotNull("Null recipe returned", recipeReturned);
+        Mockito.verify(recipeRepository, Mockito.times(1)).findById(ArgumentMatchers.anyString());
+        Mockito.verify(recipeRepository, Mockito.never()).findAll();
     }
 
     @Test(expected = NotFoundException.class)
@@ -63,7 +62,7 @@ public class RecipeServiceImplTest {
 
         Optional<Recipe> recipeOptional = Optional.empty();
 
-        when(recipeRepository.findById(anyString())).thenReturn(recipeOptional);
+        Mockito.when(recipeRepository.findById(ArgumentMatchers.anyString())).thenReturn(recipeOptional);
 
         Recipe recipeReturned = recipeService.findById("1");
 
@@ -76,18 +75,18 @@ public class RecipeServiceImplTest {
         recipe.setId("1");
         Optional<Recipe> recipeOptional = Optional.of(recipe);
 
-        when(recipeRepository.findById(anyString())).thenReturn(recipeOptional);
+        Mockito.when(recipeRepository.findById(ArgumentMatchers.anyString())).thenReturn(recipeOptional);
 
         RecipeCommand recipeCommand = new RecipeCommand();
         recipeCommand.setId("1");
 
-        when(recipeToRecipeCommand.convert(any())).thenReturn(recipeCommand);
+        Mockito.when(recipeToRecipeCommand.convert(ArgumentMatchers.any())).thenReturn(recipeCommand);
 
         RecipeCommand commandById = recipeService.findCommandById("1");
 
-        assertNotNull("Null recipe returned", commandById);
-        verify(recipeRepository, times(1)).findById(anyString());
-        verify(recipeRepository, never()).findAll();
+        Assert.assertNotNull("Null recipe returned", commandById);
+        Mockito.verify(recipeRepository, Mockito.times(1)).findById(ArgumentMatchers.anyString());
+        Mockito.verify(recipeRepository, Mockito.never()).findAll();
     }
 
     @Test
@@ -97,13 +96,13 @@ public class RecipeServiceImplTest {
         HashSet receipesData = new HashSet();
         receipesData.add(recipe);
 
-        when(recipeService.getRecipes()).thenReturn(receipesData);
+        Mockito.when(recipeService.getRecipes()).thenReturn(receipesData);
 
         Set<Recipe> recipes = recipeService.getRecipes();
 
-        assertEquals(recipes.size(), 1);
-        verify(recipeRepository, times(1)).findAll();
-        verify(recipeRepository, never()).findById(anyString());
+        Assert.assertEquals(recipes.size(), 1);
+        Mockito.verify(recipeRepository, Mockito.times(1)).findAll();
+        Mockito.verify(recipeRepository, Mockito.never()).findById(ArgumentMatchers.anyString());
     }
 
     @Test
@@ -118,6 +117,6 @@ public class RecipeServiceImplTest {
         //no 'when', since method has void return type
 
         //then
-        verify(recipeRepository, times(1)).deleteById(anyString());
+        Mockito.verify(recipeRepository, Mockito.times(1)).deleteById(ArgumentMatchers.anyString());
     }
 }
