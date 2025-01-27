@@ -71,23 +71,31 @@ public class IngredientServiceImpl implements IngredientService {
         } else {
             Recipe recipe = recipeOptional.get();
 
-            Optional<Ingredient> ingredientOptional = recipe
-                    .getIngredients()
-                    .stream()
-                    .filter(ingredient -> ingredient.getId().equals(command.getId()))
-                    .findFirst();
+            if (command.getId() != null) {
 
-            if(ingredientOptional.isPresent()){
-                Ingredient ingredientFound = ingredientOptional.get();
-                ingredientFound.setDescription(command.getDescription());
-                ingredientFound.setAmount(command.getAmount());
-                ingredientFound.setUom(unitOfMeasureRepository
-                        .findById(command.getUom().getId())
-                        .orElseThrow(() -> new RuntimeException("UOM NOT FOUND"))); //todo address this
+                Optional<Ingredient> ingredientOptional = recipe
+                        .getIngredients()
+                        .stream()
+                        .filter(ingredient -> ingredient.getId().equals(command.getId()))
+                        .findFirst();
+
+                if(ingredientOptional.isPresent()){
+                    Ingredient ingredientFound = ingredientOptional.get();
+                    ingredientFound.setDescription(command.getDescription());
+                    ingredientFound.setAmount(command.getAmount());
+                    ingredientFound.setUom(unitOfMeasureRepository
+                            .findById(command.getUom().getId())
+                            .orElseThrow(() -> new RuntimeException("UOM NOT FOUND"))); //todo address this
+                } else {
+                    //add new Ingredient
+                    Ingredient ingredient = ingredientCommandToIngredient.convert(command);
+                    //  ingredient.setRecipe(recipe);
+                    recipe.addIngredient(ingredient);
+                }
             } else {
                 //add new Ingredient
                 Ingredient ingredient = ingredientCommandToIngredient.convert(command);
-              //  ingredient.setRecipe(recipe);
+                //  ingredient.setRecipe(recipe);
                 recipe.addIngredient(ingredient);
             }
 
